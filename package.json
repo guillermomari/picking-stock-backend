@@ -1,0 +1,11 @@
+{
+  "name": "picking-stock-backend",
+  "version": "1.0.0",
+  "description": "Backend- API REST - for inventory operations management ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Guillermo Mari",
+  "license": "ISC"
+}
