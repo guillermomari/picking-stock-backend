@@ -1,0 +1,34 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Picking-Stock-Backend",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/skus/ingestion": {
+        "post": {
+          "summary": "Put into storage and insert into Database", 
+          "description": "Return a response object and insert into Database the file info object",
+          "responses": {
+            "200": {
+              "description": "Returns when file was received and proecesed successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "The file was received successfully"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

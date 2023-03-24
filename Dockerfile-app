@@ -1,0 +1,19 @@
+FROM node:18.14.1
+
+# Create a new folder for  App
+WORKDIR /app
+
+# Copy package.json file
+COPY package.json .
+
+# Install dependencies
+RUN npm install
+
+# Copy all the rest files
+COPY . .
+
+# Expose port 3000
+EXPOSE 3000
+
+# Init application
+CMD ["npm", "start"]
