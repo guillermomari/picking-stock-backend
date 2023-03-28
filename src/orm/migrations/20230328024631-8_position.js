@@ -15,8 +15,7 @@ module.exports = {
         allowNull: false
       },
       description: {
-        type: Sequelize.TEXT,
-        allowNull: true
+        type: Sequelize.TEXT
       },
       warehouseId: {
         type: Sequelize.INTEGER,
@@ -28,15 +27,14 @@ module.exports = {
       },
       max_weight: {
         type: Sequelize.FLOAT,
-        allowNull: true
+        allowNull: false
       },
       volume_capacity: {
         type: Sequelize.FLOAT,
-        allowNull: true
+        allowNull: false
       },
       notes: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -48,6 +46,7 @@ module.exports = {
       }
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Positions');
   }

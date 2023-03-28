@@ -16,9 +16,7 @@ module.exports = {
         references: {
           model: 'Orders',
           key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+        }
       },
       skuId: {
         type: Sequelize.INTEGER,
@@ -26,9 +24,7 @@ module.exports = {
         references: {
           model: 'SKUs',
           key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+        }
       },
       quantity: {
         type: Sequelize.INTEGER,
@@ -40,13 +36,11 @@ module.exports = {
       },
       assigned_to_operatorId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Operators',
           key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -58,6 +52,7 @@ module.exports = {
       }
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('OrderDetails');
   }

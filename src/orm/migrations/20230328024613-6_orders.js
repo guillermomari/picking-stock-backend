@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Costumers',
+          model: 'Customers',
           key: 'id'
         }
       },
@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Status',
+          model: 'Statuses',
           key: 'id'
         }
       },
@@ -50,54 +50,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
-
-    await queryInterface.addConstraint('Orders', {
-      fields: ['customerId'],
-      type: 'foreign key',
-      name: 'fk_Orders_Customer',
-      references: { 
-        table: 'Costumers',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
-
-    await queryInterface.addConstraint('Orders', {
-      fields: ['statusId'],
-      type: 'foreign key',
-      name: 'fk_Orders_Status',
-      references: { 
-        table: 'Status',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
-
-    await queryInterface.addConstraint('Orders', {
-      fields: ['created_by_operatorId'],
-      type: 'foreign key',
-      name: 'fk_Orders_Operators_created_by',
-      references: { 
-        table: 'Operators',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
-
-    await queryInterface.addConstraint('Orders', {
-      fields: ['assigned_to_operatorId'],
-      type: 'foreign key',
-      name: 'fk_Orders_Operators_assigned_to',
-      references: { 
-        table: 'Operators',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
     });
   },
   down: async (queryInterface, Sequelize) => {
