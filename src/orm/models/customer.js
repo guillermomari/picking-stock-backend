@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Customer.hasMany(models.Operation, { foreignKey: 'customerId' });
+      Customer.hasMany(models.Order, { foreignKey: 'customerId' });
     }
   }
   Customer.init({
@@ -25,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Customer',
   });
-  Customer.hasMany(Operation, { foreignKey: 'costumerId' });
-  Customer.hasMany(Order, { foreignKey: 'costumerId' });
+ 
   return Customer;
 };

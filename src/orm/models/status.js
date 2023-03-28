@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Status.hasMany(models.Operation, { foreignKey: 'statusId' });
+      Status.hasMany(models.Order, { foreignKey: 'statusId' });
     }
   }
   Status.init({
@@ -22,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Status',
   });
-  Status.hasMany(Operation, { foreignKey: 'statusId' });
-  Status.hasMany(Order, { foreignKey: 'statusId' });
+
   return Status;
 };

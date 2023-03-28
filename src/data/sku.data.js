@@ -1,7 +1,7 @@
 const { SKU } = require('../orm/models');
 
-async function getAllSKUs() {
-  return await SKU.findAll();
+async function getAllSKUs(limit, offset) {
+  return await SKU.findAndCountAll({limit,offset});
 }
 
 async function getSKUById(id) {

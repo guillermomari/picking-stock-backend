@@ -2,7 +2,10 @@ const skuData = require('../data/sku.data');
 
 async function getAllSKUs(req, res) {
   try {
-    const skus = await skuData.getAllSKUs();
+    const page = req.query.page || 1; 
+    const limit = req.query.limit || 10; 
+    const offset = (page - 1) * limit; 
+    const skus = await skuData.getAllSKUs(limit,offset);
     res.status(200).json(skus);
   } catch (error) {
     res.status(500).json({ error: error.message });

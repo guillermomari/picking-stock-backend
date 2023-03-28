@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Warehouse.hasMany(models.Inventory, { foreignKey: 'warehouseId' });
+      Warehouse.hasMany(models.Operation, { foreignKey: 'warehouseId' });
+      Warehouse.hasMany(models.Position, { foreignKey: 'warehouseId' });
     }
   }
   Warehouse.init({
@@ -27,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Warehouse',
   });
-  Warehouse.hasMany(Inventory, { foreignKey: 'warehouseId' });
-  Warehouse.hasMany(Operation, { foreignKey: 'warehouseId' });
-  Warehouse.hasMany(Position, { foreignKey: 'warehouseId' });
+ 
   return Warehouse;
 };

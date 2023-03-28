@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Roles.hasMany(models.Operators, { foreignKey: 'roleId' });
     }
   }
   Roles.init({
@@ -21,6 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Roles',
   });
-  Roles.hasMany(Operators, { foreignKey: 'roleId' });
+ 
   return Roles;
 };

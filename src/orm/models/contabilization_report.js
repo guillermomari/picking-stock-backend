@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      ContabilizationReport.belongsTo(models.SKU, { foreignKey: 'skuId' });
+    ContabilizationReport.belongsTo(models.Operation, { foreignKey: 'operationId' })
     }
   }
   ContabilizationReport.init({
@@ -37,9 +38,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'ContabilizationReport'
   });
-  ContabilizationReport.associate = models => {
-    ContabilizationReport.belongsTo(models.SKU, { foreignKey: 'skuId' });
-    ContabilizationReport.belongsTo(models.Operation, { foreignKey: 'operationId' })
-  };
+  
   return ContabilizationReport;
 };

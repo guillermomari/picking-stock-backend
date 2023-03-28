@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Position.belongsTo(models.Warehouse, { foreignKey: 'warehouseId' });
+      Position.hasMany(models.Inventory, { foreignKey: 'positionId' });
     }
   }
   Position.init({
@@ -26,9 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Position',
   });
-  Position.hasMany(Inventory, { foreignKey: 'positionId' });
-  Position.associate = models => {
-    Position.belongsTo(models.Warehouse, { foreignKey: 'warehouseId' });
-  };
+
+ 
   return Position;
 };

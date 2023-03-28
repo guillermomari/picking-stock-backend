@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Operators.hasMany(models.Order, { foreignKey: 'created_by_operatorId' });
+      Operators.hasMany(models.Order, { foreignKey: 'assigned_to_operatorId' });
+      Operators.hasMany(models.OrderDetail, { foreignKey: 'assigned_to_operatorId' });
+      Operators.belongsTo(models.Roles, { foreignKey: 'roleId' });
     }
   }
   Operators.init({
@@ -24,10 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Operators',
   });
-  Operators.hasMany(Order, { foreignKey: 'created_by_operatorId' });
-  Operators.hasMany(Order, { foreignKey: 'assigned_to_operatorId' });
-  Operators.hasMany(OrderDetail, { foreignKey: 'assigned_to_operatorId' });
-  Operators.associate = models => {
-    Operators.belongsTo(models.Roles, { foreignKey: 'roleId' });}
+ 
+  
+    
   return Operators;
 };

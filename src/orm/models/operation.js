@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const ContabilizationReport = require('./contabilization_report');
+
 module.exports = (sequelize, DataTypes) => {
   class Operation extends Model {
     /**
@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Operation.hasMany(models.ContabilizationReport, { foreignKey: 'operationId' });
+      Operation.belongsTo(models.SKU, { foreignKey: 'skuId' });
+      Operation.belongsTo(models.Warehouse, { foreignKey: 'warehouseId' })
+      Operation.belongsTo(models.Customer, { foreignKey: 'customerId' })
+      Operation.belongsTo(models.Status, { foreignKey: 'statusId' })
+      Operation.belongsTo(models.TypeOfOperations, { foreignKey: 'type_of_operation_id' })
     }
   }
   Operation.init({
@@ -26,13 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Operation',
   });
-  Operation.hasMany(ContabilizationReport, { foreignKey: 'operationId' });
-  Operation.associate = models => {
-    Operation.belongsTo(models.SKU, { foreignKey: 'skuId' });
-    Operation.belongsTo(models.Warehouse, { foreignKey: 'warehouseId' })
-    Operation.belongsTo(models.Costumer, { foreignKey: 'costumerId' })
-    Operation.belongsTo(models.Status, { foreignKey: 'statusId' })
-    Operation.belongsTo(models.TypeOfOperations, { foreignKey: 'type_of_operation_id' })
-  };
+ 
+  
   return Operation;
 };

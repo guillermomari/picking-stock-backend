@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      SKU.hasMany(models.ContabilizationReport, { foreignKey: 'skuId' });
+      SKU.hasMany(models.Inventory, { foreignKey: 'skuId' });
+      SKU.hasMany(models.Operation, { foreignKey: 'skuId' });
+      SKU.hasMany(models.OrderDetail, { foreignKey: 'skuId' });
     }
   }
   SKU.init({
@@ -37,9 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'SKU',
   });
-  SKU.hasMany(ContabilizationReport, { foreignKey: 'skuId' });
-  SKU.hasMany(Inventory, { foreignKey: 'skuId' });
-  SKU.hasMany(Operation, { foreignKey: 'skuId' });
-  SKU.hasMany(OrderDetail, { foreignKey: 'skuId' });
+ 
   return SKU;
 };
