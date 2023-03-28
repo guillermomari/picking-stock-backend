@@ -1,34 +1,31 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SKUs', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('ContabilizationReports', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      skuId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
-      description: {
-        type: Sequelize.TEXT
-      },
-      price: {
-        type: Sequelize.FLOAT
-      },
-      stock: {
+      prev_qty: {
         type: Sequelize.INTEGER
       },
-      positionId: {
+      act_qty: {
         type: Sequelize.INTEGER
       },
-      warehouseId: {
-        type: Sequelize.INTEGER
+      last_contabilization: {
+        type: Sequelize.DATE
       },
-      customerId: {
-        type: Sequelize.INTEGER
+      operationId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -40,7 +37,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SKUs');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('ContabilizationReports');
   }
 };

@@ -2,6 +2,9 @@
 const {
   Model
 } = require('sequelize');
+const Operation = require('./operation')
+const Inventory= require('./inventory')
+const Position= require('./position')
 module.exports = (sequelize, DataTypes) => {
   class Warehouse extends Model {
     /**
@@ -15,11 +18,17 @@ module.exports = (sequelize, DataTypes) => {
   }
   Warehouse.init({
     name: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    address: DataTypes.TEXT
+    description: DataTypes.STRING,
+    address: DataTypes.STRING,
+    height: DataTypes.FLOAT,
+    width: DataTypes.FLOAT,
+    deep:DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Warehouse',
   });
+  Warehouse.hasMany(Inventory, { foreignKey: 'warehouseId' });
+  Warehouse.hasMany(Operation, { foreignKey: 'warehouseId' });
+  Warehouse.hasMany(Position, { foreignKey: 'warehouseId' });
   return Warehouse;
 };

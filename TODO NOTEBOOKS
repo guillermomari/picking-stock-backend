@@ -1,3 +1,324 @@
-- FALTA INGESTA, GESTION DE PEDIDOS Y TAREAS RE REABASTECIMIENTO, CONTABILIZACION E INFORME Y CONCILIACION
+- TAREAS RE REABASTECIMIENTO, CONTABILIZACION ( FALTA ARMAR EL SERVICIO Y EL ENDPOINT)
+- REPASAR ENTIDADES SOBRE TODO CON CONTABILIZACION Y CUANDO SE CREARON INVENTARIO Y LO DEMAS, FALTAN CAMPOS SEGURAMENTE ------> OK
+- VER COMO HACER LAS MIGRACIONES NEUVAS ACTUALIZADAS; HAY DEPENDENCIAS DE PRELATURA DE LAS ENTIDADES PARA PODER RELACIONAR, VER SI SEPARAMOS LA CREACION DE LAS ENTIDADES DE LAS RELACIOENS
+- EMPEZAR A HACER FLUJOS DE PROCESO Y VER COMO FUNCIONAN LOS ENDPOINTS EN ESO
 - TEST FUNCIONAL
 - DESPLIEGUES EN AMBIENTES QA Y PROD
+
+
+MIGRACION DE RELACIONES PARA contabilization:
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addConstraint('ContabilizationReports', {
+      fields: ['skuId'],
+      type: 'foreign key',
+      name: 'ContabilizationReports_SKUs_fk',
+      references: {
+        table: 'SKUs',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+    await queryInterface.addConstraint('ContabilizationReports', {
+      fields: ['operationId'],
+      type: 'foreign key',
+      name: 'ContabilizationReports_Operations_fk',
+      references: {
+        table: 'Operations',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeConstraint('ContabilizationReports', 'ContabilizationReports_SKUs_fk');
+    await queryInterface.removeConstraint('ContabilizationReports', 'ContabilizationReports_Operations_fk');
+  }
+};
+
+
+MIGRACION DE RELACIONES PARA INVENTORY
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addConstraint('Inventories', {
+      type: 'foreign key',
+      fields: ['skuId'],
+      references: {
+        table: 'SKUs',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+    await queryInterface.addConstraint('Inventories', {
+      type: 'foreign key',
+      fields: ['warehouseId'],
+      references: {
+        table: 'Warehouses',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+    await queryInterface.addConstraint('Inventories', {
+      type: 'foreign key',
+      fields: ['positionId'],
+      references: {
+        table: 'Positions',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeConstraint('Inventories', 'Inventories_skuId_fkey');
+    await queryInterface.removeConstraint('Inventories', 'Inventories_warehouseId_fkey');
+    await queryInterface.removeConstraint('Inventories', 'Inventories_positionId_fkey');
+  }
+};
+
+
+RELACIONES PARA LA TABLA OPERATIONS
+
+'use strict';
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addConstraint('Operations', {
+      fields: ['skuId'],
+      type: 'foreign key',
+      name: 'fk_Operations_SKU',
+      references: {
+        table: 'SKUs',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+
+    await queryInterface.addConstraint('Operations', {
+      fields: ['warehouseId'],
+      type: 'foreign key',
+      name: 'fk_Operations_Warehouse',
+      references: {
+        table: 'Warehouses',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+
+    await queryInterface.addConstraint('Operations', {
+      fields: ['costumerId'],
+      type: 'foreign key',
+      name: 'fk_Operations_Customer',
+      references: {
+        table: 'Customers',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+
+    await queryInterface.addConstraint('Operations', {
+      fields: ['statusId'],
+      type: 'foreign key',
+      name: 'fk_Operations_Status',
+      references: {
+        table: 'Status',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+
+    await queryInterface.addConstraint('Operations', {
+      fields: ['type_of_operation_id'],
+      type: 'foreign key',
+      name: 'fk_Operations_TypeOfOperation',
+      references: {
+        table: 'TypeOfOperations',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeConstraint('Operations', 'fk_Operations_SKU');
+await queryInterface.removeConstraint('Operations', 'fk_Operations_Warehouse');
+await queryInterface.removeConstraint('Operations', 'fk_Operations_Customer');
+await queryInterface.removeConstraint('Operations', 'fk_Operations_Status');
+await queryInterface.removeConstraint('Operations', 'fk_Operations_TypeOfOperation');
+await queryInterface.dropTable('Operations');
+}
+};
+
+
+MIGRACION DE RELACIONES PARA OPERATORS
+
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+up: async (queryInterface, Sequelize) => {
+await queryInterface.addConstraint('Orders', {
+fields: ['created_by_operatorId'],
+type: 'foreign key',
+name: 'fk_Orders_Operators_created_by_operatorId',
+references: {
+table: 'Operators',
+field: 'id'
+},
+onDelete: 'restrict',
+onUpdate: 'cascade'
+});
+await queryInterface.addConstraint('Orders', {
+  fields: ['assigned_to_operatorId'],
+  type: 'foreign key',
+  name: 'fk_Orders_Operators_assigned_to_operatorId',
+  references: {
+    table: 'Operators',
+    field: 'id'
+  },
+  onDelete: 'restrict',
+  onUpdate: 'cascade'
+});
+
+await queryInterface.addConstraint('OrderDetails', {
+  fields: ['assigned_to_operatorId'],
+  type: 'foreign key',
+  name: 'fk_OrderDetails_Operators_assigned_to_operatorId',
+  references: {
+    table: 'Operators',
+    field: 'id'
+  },
+  onDelete: 'restrict',
+  onUpdate: 'cascade'
+});
+Aquí está la primera migración para crear la tabla 'Operators':
+
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+up: async (queryInterface, Sequelize) => {
+await queryInterface.createTable('Operators', {
+id: {
+allowNull: false,
+autoIncrement: true,
+primaryKey: true,
+type: Sequelize.INTEGER
+},
+name: {
+type: Sequelize.STRING,
+allowNull: false
+},
+roleId: {
+type: Sequelize.INTEGER,
+allowNull: false,
+references: {
+model: 'Roles',
+key: 'id'
+}
+},
+username: {
+type: Sequelize.STRING,
+allowNull: false
+},
+password: {
+type: Sequelize.STRING,
+allowNull: false
+},
+createdAt: {
+allowNull: false,
+type: Sequelize.DATE
+},
+updatedAt: {
+allowNull: false,
+type: Sequelize.DATE
+}
+});
+
+php
+Copy code
+await queryInterface.addConstraint('Operators', {
+  fields: ['roleId'],
+  type: 'foreign key',
+  name: 'fk_Operators_Roles',
+  references: {
+    table: 'Roles',
+    field: 'id'
+  },
+  onDelete: 'cascade',
+  onUpdate: 'cascade'
+});
+},
+
+down: async (queryInterface, Sequelize) => {
+await queryInterface.dropTable('Operators');
+}
+};
+
+Y aquí está la segunda migración para agregar las relaciones con otras tablas:
+
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+up: async (queryInterface, Sequelize) => {
+await queryInterface.addConstraint('Orders', {
+fields: ['created_by_operatorId'],
+type: 'foreign key',
+name: 'fk_Orders_Operators_created_by_operatorId',
+references: {
+table: 'Operators',
+field: 'id'
+},
+onDelete: 'restrict',
+onUpdate: 'cascade'
+});
+
+php
+Copy code
+await queryInterface.addConstraint('Orders', {
+  fields: ['assigned_to_operatorId'],
+  type: 'foreign key',
+  name: 'fk_Orders_Operators_assigned_to_operatorId',
+  references: {
+    table: 'Operators',
+    field: 'id'
+  },
+  onDelete: 'restrict',
+  onUpdate: 'cascade'
+});
+
+await queryInterface.addConstraint('OrderDetails', {
+  fields: ['assigned_to_operatorId'],
+  type: 'foreign key',
+  name: 'fk_OrderDetails_Operators_assigned_to_operatorId',
+  references: {
+    table: 'Operators',
+    field: 'id'
+  },
+  onDelete: 'restrict',
+  onUpdate: 'cascade'
+});
+},
+
+down: async (queryInterface, Sequelize) => {
+await queryInterface.removeConstraint('Orders', 'fk_Orders_Operators_created_by_operatorId');
+await queryInterface.removeConstraint('Orders', 'fk_Orders_Operators_assigned_to_operatorId');
+await queryInterface.removeConstraint('OrderDetails', 'fk_OrderDetails_Operators_assigned_to_operatorId');
+}
+};
+
+
+LLEGUE HASTA ORDER PARA SEPARAR LAS MIGRACIONES DE CREACION DE LAS RELACIONES. TERMINAR DE SEPARAR, SOLO EJECTUAR MIGRACIONES DE CREACION Y LUEGO LAS RELACIONES
