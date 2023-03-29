@@ -12,9 +12,24 @@ const positionRoutes = require('./src/routes/position.route');
 const pdfCreationService = require('./src/routes/pdfCreationService.route');
 const barcodeRoutes = require('./src/routes/barcodeService.route');
 const ingestionRoutes = require('./src/routes/ingestionServiceFromXls.route');
-const orderPickingRoutes = require('./src/routes/orderPicking.route');
+const orderPickingServiceRoutes = require('./src/routes/orderPicking.route');
+const contabilizationReportRoutes = require('./src/routes/contabilizationreport.route');
+const inventoryRoutes = require('./src/routes//inventory.route');
+const operationRoutes = require('./src/routes/operation.route');
+const operatorsRoutes = require('./src/routes/operators.route');
+const orderRoutes = require('./src/routes/order.route');
+const orderdetailRoutes = require('./src/routes/orderdetail.route');
+const rolesRoutes = require('./src/routes/roles.route');
+const statusRoutes = require('./src/routes/status.route');
+const usersRoutes = require('./src/routes/users.route');
+const typeOfOperationRoutes = require('./src/routes/typeofoperation.route');
+
+
+
+
+
 const {loginAuthentication} = require ('./src/services/login');
-const authMiddleware = require('./src/utils/authenticationMiddleware');
+const {authMiddleware} = require('./src/utils/authenticationMiddleware');
 
 app.use(bodyParser.json());
 app.use(express.json()); 
@@ -26,12 +41,23 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/pdf', authMiddleware, pdfCreationService);
 app.use('/barcode', authMiddleware, barcodeRoutes);
 app.use('/ingestion', authMiddleware, ingestionRoutes);
-app.use('/order', authMiddleware, orderPickingRoutes);
+app.use('/picking', authMiddleware, orderPickingServiceRoutes);
 
 app.use('/skus', authMiddleware, skuRoutes);
 app.use('/costumers', authMiddleware, costumerRoutes);
 app.use('/warehouses', authMiddleware, warehouseRoutes);
 app.use('/positions', authMiddleware, positionRoutes);
+app.use('/users', authMiddleware, usersRoutes);
+app.use('/status', authMiddleware, statusRoutes);
+app.use('/roles', authMiddleware, rolesRoutes);
+app.use('/orderdetail', authMiddleware, orderdetailRoutes);
+app.use('/order', authMiddleware, orderRoutes);
+app.use('/operator', authMiddleware, operatorsRoutes);
+app.use('/operation', authMiddleware, operationRoutes);
+app.use('/inventory', authMiddleware, inventoryRoutes);
+app.use('/report', authMiddleware, contabilizationReportRoutes);
+app.use('/typeofops', authMiddleware, typeOfOperationRoutes);
+
 
 
 app.use((req, res, next) => {

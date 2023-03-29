@@ -3,9 +3,9 @@ const {
   Model
 } = require('sequelize');
 const Inventory = require('./inventory');
-const ContabilizationReport= require('./contabilization_report');
-const Operation= require('./operation');
-const OrderDetail= require('./orderdetail');
+const ContabilizationReport = require('./contabilization_report');
+const Operation = require('./operation');
+const OrderDetail = require('./orderdetail');
 module.exports = (sequelize, DataTypes) => {
   class SKU extends Model {
     /**
@@ -22,25 +22,29 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   SKU.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     description: DataTypes.TEXT,
     price: DataTypes.FLOAT,
     height: DataTypes.FLOAT,
-    width:DataTypes.FLOAT,
-    deep:DataTypes.FLOAT,
+    width: DataTypes.FLOAT,
+    deep: DataTypes.FLOAT,
     unit_volume: DataTypes.FLOAT,
     unit_weight: DataTypes.FLOAT,
     color: DataTypes.STRING,
     size: DataTypes.STRING,
     package_qty: DataTypes.INTEGER,
-    minimum_unit:DataTypes.INTEGER,
+    minimum_unit: DataTypes.INTEGER,
     dangerous_manipulation: DataTypes.BOOLEAN,
-    temperature_control: DataTypes.BOOLEAN
+    temperature_control: DataTypes.BOOLEAN,
+    ean:DataTypes.STRING
 
   }, {
     sequelize,
     modelName: 'SKU',
   });
- 
+
   return SKU;
 };
