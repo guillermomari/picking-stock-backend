@@ -4,10 +4,10 @@ const customerController = require('../controllers/customer.controller');
 const {endpointsDataValidator} = require('../utils/endpointsDataValidator');
 const customerValidationSchema =  require('../orm/schemas/customer.schema');
 
-router.get('/', customerController.getAllCustomers);
-router.get('/:id', customerController.getCustomerById);
-router.post('/', endpointsDataValidator(customerValidationSchema), customerController.createCustomer);
-router.put('/:id',  customerController.updateCustomer);
-router.delete('/:id', customerController.deleteCustomer);
+router.get('/', customerController.getAllCustomersController);
+router.get('/:id', customerController.getCustomerByIdController);
+router.post('/', endpointsDataValidator(customerValidationSchema), customerController.createCustomerController);
+router.put('/:id',  customerController.updateCustomerController);
+router.delete('/:id', customerController.deleteCustomerController);
 
 module.exports = router;

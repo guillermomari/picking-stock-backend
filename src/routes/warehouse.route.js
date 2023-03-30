@@ -1,13 +1,14 @@
 const express = require('express');
 const warehouseController = require('../controllers/warehouse.controller');
 const {endpointsDataValidator} = require('../utils/endpointsDataValidator');
+const warehouseValidationSchema =  require('../orm/schemas/warehouse.schema');
 
 const router = express.Router();
 
-router.get('/', warehouseController.getAllWarehouses);
-router.get('/:id', warehouseController.getWarehouseById);
-router.post('/', endpointsDataValidator, warehouseController.createWarehouse);
-router.put('/:id',  warehouseController.updateWarehouse);
-router.delete('/:id', warehouseController.deleteWarehouse);
+router.get('/', warehouseController.getAllWarehousesController);
+router.get('/:id', warehouseController.getWarehouseByIdController);
+router.post('/', endpointsDataValidator(warehouseValidationSchema), warehouseController.createWarehouseController);
+router.put('/:id',  warehouseController.updateWarehouseController);
+router.delete('/:id', warehouseController.deleteWarehouseController);
 
 module.exports = router;

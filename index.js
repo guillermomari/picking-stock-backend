@@ -29,26 +29,26 @@ const swaggerFile = require('./swagger.json'); //VER QUE HOY NO SE HACE AUTOMATI
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.post('/api/v1.0.0/login', loginAuthentication);
-app.use('/api/v1.0.0/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-app.use('/api/v1.0.0/pdf', authMiddleware, pdfCreationService);
-app.use('/api/v1.0.0/barcode', authMiddleware, barcodeRoutes);
-app.use('/api/v1.0.0/ingestion', authMiddleware, ingestionRoutes);
-app.use('/api/v1.0.0/picking', authMiddleware, orderPickingServiceRoutes);
-app.use('/api/v1.0.0/skus', authMiddleware, skuRoutes);
-app.use('/api/v1.0.0/customers', authMiddleware, customerRoutes);
-app.use('/api/v1.0.0/warehouses', authMiddleware, warehouseRoutes);
-app.use('/api/v1.0.0/positions', authMiddleware, positionRoutes);
-app.use('/api/v1.0.0/users', authMiddleware, usersRoutes);
-app.use('/api/v1.0.0/status', authMiddleware, statusRoutes);
-app.use('/api/v1.0.0/roles', authMiddleware, rolesRoutes);
-app.use('/api/v1.0.0/orderdetail', authMiddleware, orderdetailRoutes);
-app.use('/api/v1.0.0/order', authMiddleware, orderRoutes);
-app.use('/api/v1.0.0/operator', authMiddleware, operatorsRoutes);
-app.use('/api/v1.0.0/operation', authMiddleware, operationRoutes);
-app.use('/api/v1.0.0/inventory', authMiddleware, inventoryRoutes);
-app.use('/api/v1.0.0/report', authMiddleware, contabilizationReportRoutes);
-app.use('/api/v1.0.0/typeofops', authMiddleware, typeOfOperationRoutes);
+app.post(`/api/${process.env.API_VERSION}/login`, loginAuthentication);
+app.use(`/api/${process.env.API_VERSION}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use(`/api/${process.env.API_VERSION}/pdf`, authMiddleware, pdfCreationService);
+app.use(`api/${process.env.API_VERSION}/barcode`, authMiddleware, barcodeRoutes);
+app.use(`/api/${process.env.API_VERSION}/ingestion`, authMiddleware, ingestionRoutes);
+app.use(`/api/${process.env.API_VERSION}/picking`, authMiddleware, orderPickingServiceRoutes);
+app.use(`/api/${process.env.API_VERSION}/skus`, authMiddleware, skuRoutes);
+app.use(`/api/${process.env.API_VERSION}/customers`, authMiddleware, customerRoutes);
+app.use(`/api/${process.env.API_VERSION}/warehouses`, authMiddleware, warehouseRoutes);
+app.use(`/api/${process.env.API_VERSION}/positions`, authMiddleware, positionRoutes);
+app.use(`/api/${process.env.API_VERSION}/users`, authMiddleware, usersRoutes);
+app.use(`/api/${process.env.API_VERSION}/status`, authMiddleware, statusRoutes);
+app.use(`/api/${process.env.API_VERSION}/roles`, authMiddleware, rolesRoutes);
+app.use(`/api/${process.env.API_VERSION}/orderdetail`, authMiddleware, orderdetailRoutes);
+app.use(`/api/${process.env.API_VERSION}/order`, authMiddleware, orderRoutes);
+app.use(`/api/${process.env.API_VERSION}/operator`, authMiddleware, operatorsRoutes);
+app.use(`/api/${process.env.API_VERSION}/operation`, authMiddleware, operationRoutes);
+app.use(`/api/${process.env.API_VERSION}/inventory`, authMiddleware, inventoryRoutes);
+app.use(`/api/${process.env.API_VERSION}/report`, authMiddleware, contabilizationReportRoutes);
+app.use(`/api/${process.env.API_VERSION}/typeofops`, authMiddleware, typeOfOperationRoutes);
 
 
 

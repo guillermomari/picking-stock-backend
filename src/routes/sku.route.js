@@ -6,10 +6,10 @@ const SKUValidationSchema =  require('../orm/schemas/skus.schema');
 
 const router = express.Router();
 
-router.get('/', skuController.getAllSKUs);
-router.get('/:id', skuController.getSKUById);
-router.post('/', endpointsDataValidator(SKUValidationSchema), skuController.createSKU);
-router.put('/:id', skuController.updateSKU);
-router.delete('/:id', skuController.deleteSKU);
+router.get('/', skuController.getAllSKUsController);
+router.get('/:id', skuController.getSKUByIdController);
+router.post('/', endpointsDataValidator(SKUValidationSchema), skuController.createSKUController);
+router.put('/:id', skuController.updateSKUController);
+router.delete('/:id', skuController.deleteSKUController);
 
 module.exports = router;

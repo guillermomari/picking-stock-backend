@@ -1,15 +1,15 @@
 const express = require('express');
-const skuController = require('../controllers/sku.controller');
+const orderController = require('../controllers/order.controller');
 const {endpointsDataValidator} = require('../utils/endpointsDataValidator');
-const SKUValidationSchema =  require('../orm/schemas/skus.schema');
+const orderValidationSchema =  require('../orm/schemas/order.schema');
 
 
 const router = express.Router();
 
-router.get('/', skuController.getAllSKUs);
-router.get('/:id', skuController.getSKUById);
-router.post('/', endpointsDataValidator(SKUValidationSchema), skuController.createSKU);
-router.put('/:id', skuController.updateSKU);
-router.delete('/:id', skuController.deleteSKU);
+router.get('/', orderController.getAllOrdersController);
+router.get('/:id', orderController.getOrderByIdController);
+router.post('/', endpointsDataValidator(orderValidationSchema), orderController.createOrderController);
+router.put('/:id', orderController.updateOrderController);
+router.delete('/:id', orderController.deleteOrderController);
 
 module.exports = router;

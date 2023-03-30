@@ -1,4 +1,4 @@
-const rolesData = require('../data/roles.data');U
+const rolesData = require('../data/roles.data');
 
 async function getAllRolessController(req, res) {
   try {

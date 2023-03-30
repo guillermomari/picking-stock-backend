@@ -1,15 +1,15 @@
 const express = require('express');
-const skuController = require('../controllers/sku.controller');
+const inventoryController = require('../controllers/inventory.controller');
 const {endpointsDataValidator} = require('../utils/endpointsDataValidator');
 const inventoryValidationSchema =  require('../orm/schemas/inventory.schema');
 
 
 const router = express.Router();
 
-router.get('/', skuController.getAllSKUs);
-router.get('/:id', skuController.getSKUById);
-router.post('/', endpointsDataValidator(inventoryValidationSchema), skuController.createSKU);
-router.put('/:id', skuController.updateSKU);
-router.delete('/:id', skuController.deleteSKU);
+router.get('/', inventoryController.getAllInventoriesController);
+router.get('/:id', inventoryController.getInventoryByIdController);
+router.post('/', endpointsDataValidator(inventoryValidationSchema), inventoryController.createInventoryController);
+router.put('/:id', inventoryController.updateInventoryController);
+router.delete('/:id', inventoryController.deleteInventoryController);
 
 module.exports = router;
