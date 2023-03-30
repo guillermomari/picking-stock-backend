@@ -1,31 +1,31 @@
-const { SKU } = require('../orm/models');
+const { Status } = require('../orm/models');
 
-async function getAllSKUs(limit, offset) {
-  return await SKU.findAndCountAll({limit,offset});
+async function getAllStatuses(limit, offset) {
+  return await Status.findAndCountAll({limit,offset});
 }
 
-async function getSKUById(id) {
-  return await SKU.findByPk(id);
+async function getStatusById(id) {
+  return await Status.findByPk(id);
 }
 
-async function createSKU(skuData) {
-  return await SKU.create(skuData);
+async function createStatus(statusData) {
+  return await Status.create(statusData);
 }
 
-async function updateSKU(id, skuData) {
-  const sku = await getSKUById(id);
-  return await sku.update(skuData);
+async function updateStatus(id, statusData) {
+  const status = await getStatusById(id);
+  return await status.update(statusData);
 }
 
-async function deleteSKU(id) {
-  const sku = await getSKUById(id);
-  return await sku.destroy();
+async function deleteStatus(id) {
+  const status = await getStatusById(id);
+  return await status.destroy();
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllStatuses,
+  getStatusById,
+  createStatus,
+  updateStatus,
+  deleteStatus
 };

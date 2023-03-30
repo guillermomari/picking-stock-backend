@@ -1,51 +1,51 @@
-const skuData = require('../data/sku.data');
+const statusData = require('../data/status.data');
 
-async function getAllSKUs(req, res) {
+async function getAllstatusesController(req, res) {
   try {
     const page = req.query.page || 1; 
     const limit = req.query.limit || 10; 
     const offset = (page - 1) * limit; 
-    const skus = await skuData.getAllSKUs(limit,offset);
-    res.status(200).json(skus);
+    const status = await statusData.getAllStatuses(limit,offset);
+    res.status(200).json(status);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function getSKUById(req, res) {
+async function getstatusByIdController(req, res) {
   try {
-    const sku = await skuData.getSKUById(req.params.id);
-    if (sku) {
-      res.status(200).json(sku);
+    const status = await statusData.getStatusById(req.params.id);
+    if (status) {
+      res.status(200).json(status);
     } else {
-      res.status(404).json({ error: 'SKU not found' });
+      res.status(404).json({ error: 'Status not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function createSKU(req, res) {
+async function createStatusController(req, res) {
   try {
-    const sku = await skuData.createSKU(req.body);
-    res.status(201).json(sku);
+    const status = await statusData.createStatus(req.body);
+    res.status(201).json(status);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function updateSKU(req, res) {
+async function updateStatusController(req, res) {
   try {
-    const sku = await skuData.updateSKU(req.params.id, req.body);
-    res.status(200).json(sku);
+    const status = await statusData.updateStatus(req.params.id, req.body);
+    res.status(200).json(status);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function deleteSKU(req, res) {
+async function deleteStatusController(req, res) {
   try {
-    await skuData.deleteSKU(req.params.id);
+    await statusData.deleteStatus(req.params.id);
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -53,9 +53,9 @@ async function deleteSKU(req, res) {
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllstatusesController,
+  getstatusByIdController,
+  createStatusController,
+  updateStatusController,
+  deleteStatusController
 };

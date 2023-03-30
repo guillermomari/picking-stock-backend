@@ -1,6 +1,6 @@
 const skuData = require('../data/sku.data');
 
-async function getAllSKUs(req, res) {
+async function getAllSKUsController(req, res) {
   try {
     const page = req.query.page || 1; 
     const limit = req.query.limit || 10; 
@@ -12,7 +12,7 @@ async function getAllSKUs(req, res) {
   }
 }
 
-async function getSKUById(req, res) {
+async function getSKUByIdController(req, res) {
   try {
     const sku = await skuData.getSKUById(req.params.id);
     if (sku) {
@@ -25,7 +25,7 @@ async function getSKUById(req, res) {
   }
 }
 
-async function createSKU(req, res) {
+async function createSKUController(req, res) {
   try {
     const sku = await skuData.createSKU(req.body);
     res.status(201).json(sku);
@@ -34,7 +34,7 @@ async function createSKU(req, res) {
   }
 }
 
-async function updateSKU(req, res) {
+async function updateSKUController(req, res) {
   try {
     const sku = await skuData.updateSKU(req.params.id, req.body);
     res.status(200).json(sku);
@@ -43,7 +43,7 @@ async function updateSKU(req, res) {
   }
 }
 
-async function deleteSKU(req, res) {
+async function deleteSKUController(req, res) {
   try {
     await skuData.deleteSKU(req.params.id);
     res.status(204).end();
@@ -53,9 +53,9 @@ async function deleteSKU(req, res) {
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllSKUsController,
+  getSKUByIdController,
+  createSKUController,
+  updateSKUController,
+  deleteSKUController
 };

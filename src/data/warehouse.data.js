@@ -1,36 +1,34 @@
 const { Warehouse } = require('../orm/models');
 
-async function getAllWarehouses() {
-  const warehouses = await Warehouse.findAll();
-  return warehouses;
+async function getAllWarehouses(limit, offset) {
+  return await Warehouse.findAndCountAll({limit,offset});
 }
 
 async function getWarehouseById(id) {
-  const warehouse = await Warehouse.findByPk(id);
-  return warehouse;
+ return await Warehouse.findByPk(id);
 }
 
 async function createWarehouse(warehouseData) {
-  const warehouse = await Warehouse.create(warehouseData);
-  return warehouse;
+ return await Warehouse.create(warehouseData);
+  
 }
 
 async function updateWarehouse(id, warehouseData) {
-  const warehouse = await Warehouse.findByPk(id);
+  const warehouse = await Warehouse.getWarehouseById(id);
   if (!warehouse) {
     throw new Error(`No se encontró un depósito con el ID ${id}`);
   }
-  await warehouse.update(warehouseData);
-  return warehouse;
+  return await warehouse.update(warehouseData);
+  
 }
 
 async function deleteWarehouse(id) {
-  const warehouse = await Warehouse.findByPk(id);
+  const warehouse = await Warehouse.getWarehouseById(id);
   if (!warehouse) {
     throw new Error(`No se encontró un depósito con el ID ${id}`);
   }
-  await warehouse.destroy();
-  return warehouse;
+ return await warehouse.destroy();
+ 
 }
 
 module.exports = {

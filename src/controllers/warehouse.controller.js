@@ -1,6 +1,6 @@
 const warehouseData = require('../data/warehouse.data');
 
-async function getAllWarehouses(req, res, next) {
+async function getAllWarehousesController(req, res, next) {
   try {
     const warehouses = await warehouseData.getAllWarehouses();
     res.status(200).json(warehouses);
@@ -9,7 +9,7 @@ async function getAllWarehouses(req, res, next) {
   }
 }
 
-async function getWarehouseById(req, res, next) {
+async function getWarehouseByIdController(req, res, next) {
   const { id } = req.params;
   try {
     const warehouse = await warehouseData.getWarehouseById(id);
@@ -23,7 +23,7 @@ async function getWarehouseById(req, res, next) {
   }
 }
 
-async function createWarehouse(req, res, next) {
+async function createWarehouseController(req, res, next) {
   const { body } = req;
   try {
     const warehouse = await warehouseData.createWarehouse(body);
@@ -33,7 +33,7 @@ async function createWarehouse(req, res, next) {
   }
 }
 
-async function updateWarehouse(req, res, next) {
+async function updateWarehouseController(req, res, next) {
   const { id } = req.params;
   const { body } = req;
   try {
@@ -44,7 +44,7 @@ async function updateWarehouse(req, res, next) {
   }
 }
 
-async function deleteWarehouse(req, res, next) {
+async function deleteWarehouseController(req, res, next) {
   const { id } = req.params;
   try {
     const warehouse = await warehouseData.deleteWarehouse(id);
@@ -55,9 +55,9 @@ async function deleteWarehouse(req, res, next) {
 }
 
 module.exports = {
-  getAllWarehouses,
-  getWarehouseById,
-  createWarehouse,
-  updateWarehouse,
-  deleteWarehouse,
+  getAllWarehousesController,
+  getWarehouseByIdController,
+  createWarehouseController,
+  updateWarehouseController,
+  deleteWarehouseController,
 };

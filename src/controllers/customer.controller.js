@@ -1,6 +1,6 @@
 const customerData = require('../data/customer.data');
 
-const getAllCustomers = async (req, res, next) => {
+const getAllCustomersController = async (req, res, next) => {
   try {
     const customers = await customerData.getAllCustomers();
     res.status(200).json(customers);
@@ -9,7 +9,7 @@ const getAllCustomers = async (req, res, next) => {
   }
 };
 
-const getCustomerById = async (req, res, next) => {
+const getCustomerByIdController = async (req, res, next) => {
   const id = req.params.id;
   try {
     const customer = await customerData.getCustomerById(id);
@@ -19,28 +19,28 @@ const getCustomerById = async (req, res, next) => {
   }
 };
 
-const createCustomer = async (req, res, next) => {
-  const customerData = req.body;
+const createCustomerController = async (req, res, next) => {
+  const data = req.body;
   try {
-    const customer = await customerData.createCustomer(customerData);
+    const customer = await customerData.createCustomer(data);
     res.status(201).json(customer);
   } catch (error) {
     next(error);
   }
 };
 
-const updateCustomer = async (req, res, next) => {
+const updateCustomerController = async (req, res, next) => {
   const id = req.params.id;
-  const customerData = req.body;
+  const data = req.body;
   try {
-    const customer = await customerData.updateCustomer(id, customerData);
+    const customer = await customerData.updateCustomer(id, data);
     res.status(200).json(customer);
   } catch (error) {
     next(error);
   }
 };
 
-const deleteCustomer = async (req, res, next) => {
+const deleteCustomerController = async (req, res, next) => {
   const id = req.params.id;
   try {
     await customerData.deleteCustomer(id);
@@ -51,9 +51,9 @@ const deleteCustomer = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllCustomers,
-  getCustomerById,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer,
+  getAllCustomersController,
+  getCustomerByIdController,
+  createCustomerController,
+  updateCustomerController,
+  deleteCustomerController,
 };

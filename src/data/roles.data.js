@@ -1,31 +1,31 @@
-const { SKU } = require('../orm/models');
+const { Roles } = require('../orm/models');
 
-async function getAllSKUs(limit, offset) {
-  return await SKU.findAndCountAll({limit,offset});
+async function getAllRoles(limit, offset) {
+  return await Roles.findAndCountAll({limit,offset});
 }
 
-async function getSKUById(id) {
-  return await SKU.findByPk(id);
+async function getRoleById(id) {
+  return await Roles.findByPk(id);
 }
 
-async function createSKU(skuData) {
-  return await SKU.create(skuData);
+async function createRole(roleData) {
+  return await Roles.create(roleData);
 }
 
-async function updateSKU(id, skuData) {
-  const sku = await getSKUById(id);
-  return await sku.update(skuData);
+async function updateRole(id, roleData) {
+  const role = await getRoleById(id);
+  return await role.update(roleData);
 }
 
-async function deleteSKU(id) {
-  const sku = await getSKUById(id);
-  return await sku.destroy();
+async function deleteRole(id) {
+  const role = await getRoleById(id);
+  return await role.destroy();
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllRoles,
+  getRoleById,
+  createRole,
+  updateRole,
+  deleteRole
 };

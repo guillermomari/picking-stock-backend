@@ -11,21 +11,21 @@ const getPositionById = async (id) => {
 };
 
 const createPosition = async (data) => {
-  const position = await Position.create(data);
-  return position;
+  return await Position.create(data);
+   
 };
 
-const updatePosition = async (id, data) => {
-  await Position.update(data, { where: { id } });
-  const updatedPosition = await getPositionById(id);
-  return updatedPosition;
-};
-
-const deletePosition = async (id) => {
+async function updatePosition(id, data) {
   const position = await getPositionById(id);
-  await Position.destroy({ where: { id } });
-  return position;
-};
+  return await position.update(data);
+}
+
+
+
+async function deletePosition(id) {
+  const position = await getPositionById(id);
+  return await position.destroy();
+}
 
 module.exports = {
   getAllPositions,

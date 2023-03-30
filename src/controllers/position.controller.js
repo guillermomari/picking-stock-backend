@@ -1,11 +1,11 @@
 const positionData = require('../data/position.data');
 
-const getAllPositions = async (req, res) => {
+const getAllPositionsController = async (req, res) => {
   const positions = await positionData.getAllPositions();
   res.status(200).json(positions);
 };
 
-const getPositionById = async (req, res) => {
+const getPositionByIdController = async (req, res) => {
   const { id } = req.params;
   const position = await positionData.getPositionById(id);
   if (!position) {
@@ -14,16 +14,16 @@ const getPositionById = async (req, res) => {
   res.status(200).json(position);
 };
 
-const createPosition = async (req, res) => {
+const createPositionController = async (req, res) => {
   const data = req.body;
   const position = await positionData.createPosition(data);
   res.status(201).json(position);
 };
 
-const updatePosition = async (req, res) => {
+const updatePositionController = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
-  const position = await positionData.getPositionById(id);
+  const position = await positionData.getPositionById(id, data);
   if (!position) {
     return res.status(404).json({ error: 'Position not found' });
   }
@@ -31,7 +31,7 @@ const updatePosition = async (req, res) => {
   res.status(200).json(updatedPosition);
 };
 
-const deletePosition = async (req, res) => {
+const deletePositionController = async (req, res) => {
   const { id } = req.params;
   const position = await positionData.getPositionById(id);
   if (!position) {
@@ -42,9 +42,9 @@ const deletePosition = async (req, res) => {
 };
 
 module.exports = {
-  getAllPositions,
-  getPositionById,
-  createPosition,
-  updatePosition,
-  deletePosition,
+  getAllPositionsController,
+  getPositionByIdController,
+  createPositionController,
+  updatePositionController,
+  deletePositionController,
 };

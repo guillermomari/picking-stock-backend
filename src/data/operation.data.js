@@ -1,31 +1,31 @@
-const { SKU } = require('../orm/models');
+const { Operation } = require('../orm/models');
 
-async function getAllSKUs(limit, offset) {
-  return await SKU.findAndCountAll({limit,offset});
+async function getAllOps(limit, offset) {
+  return await Operation.findAndCountAll({limit,offset});
 }
 
-async function getSKUById(id) {
-  return await SKU.findByPk(id);
+async function getOpById(id) {
+  return await Operation.findByPk(id);
 }
 
-async function createSKU(skuData) {
-  return await SKU.create(skuData);
+async function createOp(opData) {
+  return await Operation.create(opData);
 }
 
-async function updateSKU(id, skuData) {
-  const sku = await getSKUById(id);
-  return await sku.update(skuData);
+async function updateOp(id, opData) {
+  const op = await getOpById(id);
+  return await op.update(opData);
 }
 
-async function deleteSKU(id) {
-  const sku = await getSKUById(id);
-  return await sku.destroy();
+async function deleteOp(id) {
+  const op = await getOpById(id);
+  return await op.destroy();
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllOps,
+  getOpById,
+  createOp,
+  updateOp,
+  deleteOp
 };

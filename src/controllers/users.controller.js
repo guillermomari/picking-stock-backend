@@ -1,51 +1,51 @@
-const skuData = require('../data/sku.data');
+const userData = require('../data/users.data');
 
-async function getAllSKUs(req, res) {
+async function getAllUsersController(req, res) {
   try {
     const page = req.query.page || 1; 
     const limit = req.query.limit || 10; 
     const offset = (page - 1) * limit; 
-    const skus = await skuData.getAllSKUs(limit,offset);
-    res.status(200).json(skus);
+    const users = await userData.getAllUsers(limit,offset);
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function getSKUById(req, res) {
+async function getUserByIdController(req, res) {
   try {
-    const sku = await skuData.getSKUById(req.params.id);
-    if (sku) {
-      res.status(200).json(sku);
+    const user = await userData.getUserById(req.params.id);
+    if (user) {
+      res.status(200).json(user);
     } else {
-      res.status(404).json({ error: 'SKU not found' });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function createSKU(req, res) {
+async function createUserController(req, res) {
   try {
-    const sku = await skuData.createSKU(req.body);
-    res.status(201).json(sku);
+    const user = await userData.createUser(req.body);
+    res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function updateSKU(req, res) {
+async function updateUserController(req, res) {
   try {
-    const sku = await skuData.updateSKU(req.params.id, req.body);
-    res.status(200).json(sku);
+    const user = await userData.updateUser(req.params.id, req.body);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function deleteSKU(req, res) {
+async function deleteuserController(req, res) {
   try {
-    await skuData.deleteSKU(req.params.id);
+    await userData.deleteUser(req.params.id);
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -53,9 +53,9 @@ async function deleteSKU(req, res) {
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllUsersController,
+  getUserByIdController,
+  createUserController,
+  updateUserController,
+  deleteuserController
 };

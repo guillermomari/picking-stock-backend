@@ -1,51 +1,51 @@
-const skuData = require('../data/sku.data');
+const inventoryData = require('../data/inventory.data');
 
-async function getAllSKUs(req, res) {
+async function getAllInventoriesController(req, res) {
   try {
     const page = req.query.page || 1; 
     const limit = req.query.limit || 10; 
     const offset = (page - 1) * limit; 
-    const skus = await skuData.getAllSKUs(limit,offset);
-    res.status(200).json(skus);
+    const inventories = await inventoryData.getAllInventories(limit,offset);
+    res.status(200).json(inventories);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function getSKUById(req, res) {
+async function getInventoryByIdController(req, res) {
   try {
-    const sku = await skuData.getSKUById(req.params.id);
-    if (sku) {
-      res.status(200).json(sku);
+    const inventory = await inventoryData.getInventoryById(req.params.id);
+    if (Inventory) {
+      res.status(200).json(inventory);
     } else {
-      res.status(404).json({ error: 'SKU not found' });
+      res.status(404).json({ error: 'Inventory not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function createSKU(req, res) {
+async function createInventoryController(req, res) {
   try {
-    const sku = await skuData.createSKU(req.body);
-    res.status(201).json(sku);
+    const inventory = await inventoryData.createInventory(req.body);
+    res.status(201).json(inventory);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function updateSKU(req, res) {
+async function updateInventoryController(req, res) {
   try {
-    const sku = await skuData.updateSKU(req.params.id, req.body);
-    res.status(200).json(sku);
+    const inventory = await inventoryData.updateInventory(req.params.id, req.body);
+    res.status(200).json(inventory);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function deleteSKU(req, res) {
+async function deleteInventoryController(req, res) {
   try {
-    await skuData.deleteSKU(req.params.id);
+    await inventoryData.deleteInventory(req.params.id);
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -53,9 +53,9 @@ async function deleteSKU(req, res) {
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllInventoriesController,
+  getInventoryByIdController,
+  createInventoryController,
+  updateInventoryController,
+  deleteInventoryController
 };

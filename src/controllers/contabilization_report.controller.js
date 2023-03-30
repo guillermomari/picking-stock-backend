@@ -1,6 +1,6 @@
 const reportData = require('../data/contabilization_report.data');
 
-async function getAllReports(req, res) {
+async function getAllReportsController(req, res) {
   try {
     const page = req.query.page || 1; 
     const limit = req.query.limit || 10; 
@@ -12,7 +12,7 @@ async function getAllReports(req, res) {
   }
 }
 
-async function getReportById(req, res) {
+async function getReportByIdController(req, res) {
   try {
     const report = await reportData.getReportyById(req.params.id);
     if (report) {
@@ -25,7 +25,7 @@ async function getReportById(req, res) {
   }
 }
 
-async function createReport(req, res) {
+async function createReportController(req, res) {
   try {
     const report = await reportData.createReport(req.body);
     res.status(201).json(report);
@@ -34,7 +34,7 @@ async function createReport(req, res) {
   }
 }
 
-async function updateReport(req, res) {
+async function updateReportController(req, res) {
   try {
     const report = await reportData.updateReport(req.params.id, req.body);
     res.status(200).json(report);
@@ -43,7 +43,7 @@ async function updateReport(req, res) {
   }
 }
 
-async function deleteReport(req, res) {
+async function deleteReportController(req, res) {
   try {
     const deletedReport = await reportData.deleteReport(req.params.id);
     res.status(204).end(deletedReport);
@@ -53,9 +53,9 @@ async function deleteReport(req, res) {
 }
 
 module.exports = {
-  getAllReports,
-  getReportById,
-  createReport,
-  updateReport,
-  deleteReport
+  getAllReportsController,
+  getReportByIdController,
+  createReportController,
+  updateReportController,
+  deleteReportController
 };

@@ -1,51 +1,51 @@
-const skuData = require('../data/sku.data');
+const orderDetailData = require('../data/orderdetail.data');
 
-async function getAllSKUs(req, res) {
+async function getAllOrdersDetailsController(req, res) {
   try {
     const page = req.query.page || 1; 
     const limit = req.query.limit || 10; 
     const offset = (page - 1) * limit; 
-    const skus = await skuData.getAllSKUs(limit,offset);
-    res.status(200).json(skus);
+    const orderDetails = await orderDetailData.getAllOrderDetails(limit,offset);
+    res.status(200).json(orderDetails);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function getSKUById(req, res) {
+async function getOrderDetailByIdController(req, res) {
   try {
-    const sku = await skuData.getSKUById(req.params.id);
-    if (sku) {
-      res.status(200).json(sku);
+    const orderDetail = await orderDetailData.getOrderDetailById(req.params.id);
+    if (orderDetail) {
+      res.status(200).json(orderDetail);
     } else {
-      res.status(404).json({ error: 'SKU not found' });
+      res.status(404).json({ error: 'orderDetail not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function createSKU(req, res) {
+async function createOrderDetailController(req, res) {
   try {
-    const sku = await skuData.createSKU(req.body);
-    res.status(201).json(sku);
+    const orderDetail = await orderDetailData.createOrderDetail(req.body);
+    res.status(201).json(orderDetail);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function updateSKU(req, res) {
+async function updateOrderDetailController(req, res) {
   try {
-    const sku = await skuData.updateSKU(req.params.id, req.body);
-    res.status(200).json(sku);
+    const orderDetail = await orderDetailData.updateOrderDetail(req.params.id, req.body);
+    res.status(200).json(orderDetail);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-async function deleteSKU(req, res) {
+async function deleteOrderDetailController(req, res) {
   try {
-    await skuData.deleteSKU(req.params.id);
+    await orderDetailData.deleteOrderDetail(req.params.id);
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -53,9 +53,9 @@ async function deleteSKU(req, res) {
 }
 
 module.exports = {
-  getAllSKUs,
-  getSKUById,
-  createSKU,
-  updateSKU,
-  deleteSKU
+  getAllOrdersDetailsController,
+  getOrderDetailByIdController,
+  createOrderDetailController,
+  updateOrderDetailController,
+  deleteOrderDetailController
 };
